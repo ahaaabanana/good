@@ -20,6 +20,15 @@ void		ft_putchar(char c)
 	write(1, &c, 1);
 }
 
+void		ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i] != '\0')
+		ft_putchar(str[i++]);
+}
+
 void		map_length_height(int *x, int *y, char *filename)
 {
 	int 	fd;
@@ -65,6 +74,10 @@ char		**matr(char *filename)
 		map_table[i][map_length + 1] == '\0';
 		i++;
 	}
+	printf("%s", map_table[0]);
+	printf("%s", map_table[1]);
+/*	for (int i = 0; i < map_height; i++)
+		ft_putstr(map_table[i]);*/
 	close(fd);
 	return (map_table);
 }
