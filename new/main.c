@@ -52,6 +52,18 @@ void		map_length_height(int *x, int *y, char *filename)
 	close(fd);
 }
 
+void		ft_putmatr(char **map_table, int map_height)
+{
+	int		i;
+
+	i = 0;
+	while (i < map_height)
+	{
+		ft_putstr(map_table[i++]);
+		ft_putchar('\n');
+	}
+}
+
 char		**matr(char *filename)
 {
 	int		map_length;
@@ -66,19 +78,16 @@ char		**matr(char *filename)
 	map_length_height(&map_length, &map_height, filename);
 	fd = open(filename, O_RDONLY);
 	map_table = (char**)malloc(sizeof(*map_table) * map_height);
-	lseek(fd, 5, 1);
+	lseek(fd, 6, 1);
 	while (i < map_height)
 	{
 		map_table[i] = (char*)malloc(sizeof(**map_table) * map_length + 1);
 		read(fd, map_table[i], map_length + 1);
-		map_table[i][map_length + 1] == '\0';
+		map_table[i][map_length] = '\0';
 		i++;
 	}
-	printf("%s", map_table[0]);
-	printf("%s", map_table[1]);
-/*	for (int i = 0; i < map_height; i++)
-		ft_putstr(map_table[i]);*/
 	close(fd);
+	ft_putmatr(map_table, map_height);
 	return (map_table);
 }
 
